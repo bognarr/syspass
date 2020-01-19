@@ -1,0 +1,55 @@
+apt-get install apache2 -y
+
+apt-get install mysql-server -y
+
+apt-get install php libapache2-mod-php -y
+
+apt-get install php-mcrypt php-mysql php-opcache php-mbstring php-ldap php-bcmath php-gd php-xml php-common php-mysqlnd -y
+
+mysql -u root -p
+
+mysql -u root -p
+
+create database syspass;
+
+grant all privileges on syspass.* to spadmin@localhost identified by "StronGP@ssw0RD";
+
+flush privileges;
+
+quit
+
+systemctl restart mariadb
+
+git clone https://github.com/nuxsmin/sysPass.git /var/www/html/syspass
+
+chown www-data -R /var/www/html/syspass
+
+chmod 750 /var/www/html/syspass/app/{config,backup}
+
+cd /var/www/html/syspass
+
+
+mcedit composer-install.sh ->
+  #!/bin/sh
+    EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+    if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
+    then
+      >&2 echo 'ERROR: Invalid installer signature'
+      rm composer-setup.php
+      exit 1
+    fi
+    php composer-setup.php --quiet
+    RESULT=$?
+    rm composer-setup.php
+    exit $RESULT
+
+bash composer-install.sh
+
+php composer.phar install --no-dev
+
+service apache2 restart
+
+http://<syspass-server>/syspass
+
