@@ -8,8 +8,6 @@ apt-get install php-mcrypt php-mysql php-opcache php-mbstring php-ldap php-bcmat
 
 mysql -u root -p
 
-mysql -u root -p
-
 create database syspass;
 
 grant all privileges on syspass.* to spadmin@localhost identified by "StronGP@ssw0RD";
