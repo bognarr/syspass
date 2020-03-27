@@ -16,13 +16,14 @@ flush privileges;
 
 quit
 
-systemctl restart mariadb
+///////systemctl restart mariadb
 
 git clone https://github.com/nuxsmin/sysPass.git /var/www/html/syspass
 
 chown www-data -R /var/www/html/syspass
 
-chmod 750 /var/www/html/syspass/app/{config,backup}
+chmod 750 /var/www/html/syspass/app/config
+chmod 750 /var/www/html/syspass/app/backup
 
 cd /var/www/html/syspass
 
