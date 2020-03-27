@@ -16,8 +16,6 @@ flush privileges;
 
 quit
 
-///////systemctl restart mariadb
-
 git clone https://github.com/nuxsmin/sysPass.git /var/www/html/syspass
 
 chown www-data -R /var/www/html/syspass
